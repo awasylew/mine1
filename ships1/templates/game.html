@@ -1,0 +1,116 @@
+<style>
+	.cell  { 
+		background-color: lightgray;
+		width:53;
+		height:53;
+		text-align:center;
+		margin:5;
+	}
+
+	.child {
+		vertical-align: middle;
+	}
+	
+	.actions {
+		margin: 0;
+		border: 0;
+		padding: 0;
+		opacity: 0.05;
+	}
+	
+	.actionsV {
+		margin: 0;
+		border: 0;
+		padding: 0;
+	}
+	
+	.stopy:hover {
+	    background-image: url('/static/stopy.png');
+	    background-repeat: no-repeat;
+	    opacity: 1;
+	}
+
+	.flaga:hover {
+	    background-image: url('/static/flaga.png');
+	    background-repeat: no-repeat;
+	    opacity: 1;
+	}
+
+
+	.minecount1 {
+		color: blue;
+	}
+	
+	.minecount2 {
+		color: green;
+	}		
+
+	.minecount3 {
+		color: red;
+	}
+
+	.minecount4 {
+		color: #000066;
+	}
+	
+	.minecount5 {
+		color: #990000;
+	}
+	
+	.minecount6 {
+		color: #00cc99;
+	}
+	
+	.minecount7 {
+		color: black;
+	}
+	
+	.minecount8 {
+		color: #666666;
+	}
+	
+	.minecount1, .minecount2, .minecount3, .minecount4, .minecount5, .minecount6, .minecount7, .minecount8 {
+		font-size: 250%;
+		font-family: courier;
+		font-weight: bolder;
+	}
+	
+
+</style>
+
+<html>
+
+<title>Minesweeper</title>
+
+<a href='/new_game'>Start new game</a>
+<a href='/quit_server'>Quit server</a>
+
+<div>status: {{ game.status }} </div>
+
+<div>mines left: {{ game.minesLeft }} </div>
+
+<table>
+{% for y in range(game.field.height) %}
+	<tr>
+	{% for x in range(game.field.width) %}
+		<td class='cell'>
+			{% set f = game.field.field[ x,y ] %}   
+			{% if f in ['e', 'M'] %}
+				<a href='/flag/{{ x }}/{{ y }}'><img class='actions flaga' src='{{ url_for('static', filename='flaga.png') }}'/></a>
+			{% endif %}
+			{%if f in ['1', '2', '3', '4', '5', '6', '7', '8', '9'] %}
+				<p class='minecount{{ f }}'>{{ f }}</p>
+			{% endif %}
+			{% if f in ['Fe', 'FM'] %}
+				<a href='/flag/{{ x }}/{{ y }}'><img class='actionV' src='{{ url_for('static', filename='flaga.png') }}'/></a>
+			{% endif %}
+			{% if f in ['e', 'M'] %}
+				<a href='/step/{{ x }}/{{ y }}'><img class='actions stopy' src='{{ url_for('static', filename='stopy.png') }}'/></a>
+			{% endif %}
+		</td>
+	{% endfor %}
+	</tr>
+{% endfor %}
+</table>
+
+</html>
