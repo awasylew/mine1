@@ -107,13 +107,13 @@ class Game(object):
         self.field.display()
         
     def step(self,x,y):
-        if self.status=='done':
+        if self.status=='game over':
             print('game over')
             return
         if self.field.field[ (x,y) ] == 'M':
             print('boom!')
             self.display()
-            self.status='done'
+            self.status='game over'
             return
         self.field.step( (x,y) )
         self.display()
