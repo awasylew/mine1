@@ -111,7 +111,7 @@ class Game(object):
             print('game over')
             return
         if self.field.field[ (x,y) ] == 'M':
-            print('boom!')
+            print('boom!!!')
             self.display()
             self.status='game over'
             return
